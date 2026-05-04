@@ -14,7 +14,8 @@ from plots import (
     plot_metric_comparison,
     plot_confusion,
     plot_pca_variance,
-    plot_accuracy_vs_components
+    plot_accuracy_vs_components,
+    plot_eda
 )
 
 print("Loading dataset...")
@@ -25,6 +26,9 @@ train_labels = np.array(dataset['train']['label'][:TRAIN_SIZE])
 
 test_texts = dataset['test']['text'][:TEST_SIZE]
 test_labels = np.array(dataset['test']['label'][:TEST_SIZE])
+
+print("Running Exploratory Data Analysis...")
+plot_eda(train_texts, train_labels)
 
 print("Preprocessing...")
 train_texts = preprocess(train_texts)
@@ -139,30 +143,30 @@ plot_pca_variance(pca)
 # for r in results:
 #     print(f"{r[0]:12} | {r[1]:12} | Acc: {r[2]:.4f} | F1: {r[3]:.4f}")
 
-results = []
+# results = []
 
-def run_all(X_train, X_test, y_train, y_test, feature_name):
-    models = get_models()
+# def run_all(X_train, X_test, y_train, y_test, feature_name):
+#     models = get_models()
 
-    for model_name, model in models.items():
-        model.fit(X_train, y_train)
+#     for model_name, model in models.items():
+#         model.fit(X_train, y_train)
 
-        acc, f1, prec, rec, report, preds = evaluate(model, X_test, y_test)
+#         acc, f1, prec, rec, report, preds = evaluate(model, X_test, y_test)
 
-        results.append({
-            "model": model_name,
-            "feature": feature_name,
-            "accuracy": acc,
-            "f1": f1,
-            "precision": prec,
-            "recall": rec
-        })
+#         results.append({
+#             "model": model_name,
+#             "feature": feature_name,
+#             "accuracy": acc,
+#             "f1": f1,
+#             "precision": prec,
+#             "recall": rec
+#         })
 
-        print(f"\n{model_name} - {feature_name}")
-        print(report)
+#         print(f"\n{model_name} - {feature_name}")
+#         print(report)
 
-        # plot confusion matrix
-        plot_confusion(y_test, preds, f"{model_name} - {feature_name}")
+#         # plot confusion matrix
+#         plot_confusion(y_test, preds, f"{model_name} - {feature_name}")
 
 # =========================
 # PLOTS
