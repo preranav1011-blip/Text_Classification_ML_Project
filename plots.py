@@ -50,3 +50,27 @@ def plot_accuracy_vs_components(components, scores, title):
     plt.xlabel("Number of Components")
     plt.ylabel("Accuracy")
     plt.show()
+
+def plot_eda(texts, labels, title="Exploratory Data Analysis"):
+    plt.figure(figsize=(12, 5))
+    
+    # Plot 1: Class Distribution
+    plt.subplot(1, 2, 1)
+    unique_classes, counts = np.unique(labels, return_counts=True)
+    plt.bar(unique_classes, counts, color='skyblue', edgecolor='black')
+    plt.title("Class Distribution in Training Set")
+    plt.xlabel("Class Label")
+    plt.ylabel("Number of Samples")
+    plt.xticks(unique_classes)
+    
+    # Plot 2: Text Length Distribution
+    plt.subplot(1, 2, 2)
+    lengths = [len(str(t).split()) for t in texts]
+    plt.hist(lengths, bins=40, color='lightcoral', edgecolor='black')
+    plt.title("Text Length Distribution (Word Count)")
+    plt.xlabel("Number of Words per Article")
+    plt.ylabel("Frequency")
+    
+    plt.suptitle(title, fontsize=14)
+    plt.tight_layout()
+    plt.show()
